@@ -1,13 +1,30 @@
-var assert = require('assert'),
-    assertions = {
-        equal: assert.deepEqual,
-        notEqual: assert.notDeepEqual,
-        throws: assert.throws,
-        doesNotThrow: assert.doesNotThrow
-    };
-
-global.expect = function(value){
+(function(root, factory) {
     'use strict';
+    var AssertionError = function(options){
+        this.message = options.message;
+    };
+    // Set up Backbone appropriately for the environment.
+    if (typeof exports !== 'undefined') {
+        // Node/CommonJS, no need for jQuery in that case.
+        factory(root, require('assert').AssertionError);
+    } else if (typeof window.define === 'function' && window.define.amd) {
+        // AMD
+        window.define('expect', [], function() {
+            factory(root, AssertionError);
+        });
+    } else {
+        // Browser globals
+        root.expect = factory(root, AssertionError);
+    }
+})(this, function(root, AssertionError) {
+    'use strict';
+    var assertions = {
+        pass: function(message){
+        },
+        fail: function(message){
+            throw new AssertionError({message: message});
+        }
+    };
 
     function formatValue(value, ignoreUndefined){
         if(typeof value === 'undefined'){
@@ -25,39 +42,75 @@ global.expect = function(value){
         return value.toString();
     }
 
-    function expected(value, expr, toDo, otherVal){
+    /*
+     * Formats an expectation string - "expected [value] [expr] [toDo] [otherVal]"
+     *
+     * value: The value that was passed into Expect
+     * expr: An optional expression to pivot on, eg "not"
+     * toDo: What the value was expected to do - eg "to equal", "to be defined" etc
+     * otherVal: Optionally give the value you're comparing against at the end of the message
+    **/
+    function expectation(value, expr, toDo, otherVal){
         return ('expected ' + formatValue(value) + ' ' + expr + toDo + ' ' + formatValue(otherVal, true)).replace(/\s\s/g, ' ').replace(/(^\s|\s$)/g, '');
     }
 
-    function Expect(assertions, expr, parent){
+    function Expect(value, assertions, expr, parent){
         var self = this;
         expr = expr || '';
+        this.assertions = assertions;
+        this.expectation = expectation;
         this.toEqual = function(val){
-            assertions.equal(value, val, expected(value, expr, 'to equal', val));
+            var message = expectation(value, expr, 'to equal', val);
+            if(value !== val){
+                return assertions.fail(message);
+            }
+            assertions.pass(message);
         };
         this.toBeTruthy = function(val){
-            assertions.equal(!!value, true, expected(value, expr, 'to be truthy'));
+            var message = expectation(value, expr, 'to be truthy');
+            if(!!value){
+                return assertions.pass(message);
+            }
+            this.assertions.fail(message);
         };
         this.toBeGreaterThan = function(val){
-            assertions.equal(value > val, true, expected(value, expr, 'to be greater than', val));
+            var message = expectation(value, expr, 'to be greater than', val);
+            if(value > val){
+                return assertions.pass(message);
+            }
+            assertions.fail(message);
         };
         this.toContain = function(val){
-            assertions.notEqual(value.indexOf(val), -1, expected(value, expr, 'to contain', val));
+            var message = expectation(value, expr, 'to contain', val);
+            if(value.indexOf(val) > -1){
+                return assertions.pass(message);
+            }
+            assertions.fail(message);
         };
         this.toBeDefined = function(){
-            assertions.notEqual(value, undefined, expected(value, expr, 'to be defined'));
+            var message = expectation(value, expr, 'to be defined');
+            if(typeof value !== 'undefined'){
+                return assertions.pass(message);
+            }
+            assertions.fail(message);
         };
-        this.toThrow = function(error){
-            assertions.throws(value, error, expected(value, expr, 'to throw an exception'));
+        this.toThrow = function(){
+            var message = expectation(value, expr, 'to throw an exception');
+            try{
+                value();
+                return assertions.pass(message);
+            }catch(e){
+                assertions.fail(message);
+            }
         };
-        this.not = parent || new Expect({
-            'equal': assertions.notEqual,
-            'notEqual': assertions.equal,
-            'throws': assertions.doesNotThrow,
-            'doesNotThrow': assertions.throws
+        this.not = parent || new Expect(value, {
+            fail: assertions.pass,
+            pass: assertions.fail
         }, 'not ', this);
     }
 
-    return new Expect(assertions);
-};
-global.expect.assertions = assertions;
+    global.expect = function(value){
+        return new Expect(value, assertions);
+    };
+    global.expect.assertions = assertions;
+});
