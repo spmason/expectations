@@ -6,7 +6,7 @@
     // Set up Backbone appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS, no need for jQuery in that case.
-        factory(root, require('assert').AssertionError);
+        factory(global, require('assert').AssertionError);
     } else if (typeof window.define === 'function' && window.define.amd) {
         // AMD
         window.define('expect', [], function() {
@@ -14,7 +14,7 @@
         });
     } else {
         // Browser globals
-        root.expect = factory(root, AssertionError);
+        factory(root, AssertionError);
     }
 })(this, function(root, AssertionError) {
     'use strict';
@@ -109,8 +109,8 @@
         }, 'not ', this);
     }
 
-    global.expect = function(value){
+    root.expect = function(value){
         return new Expect(value, assertions);
     };
-    global.expect.assertions = assertions;
+    root.expect.assertions = assertions;
 });
