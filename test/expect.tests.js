@@ -35,6 +35,26 @@
                     }
                 }
             });
+            it('can expect an object to be a different but equivalent object', function(){
+                expect({abc: 123}).toEqual({abc: 123});
+            });
+        });
+
+        describe('toBe', function(){
+            var obj1 = {'abc': 123};
+            var obj2 = {'abc': 123};
+            it('can expect an object to be the same object', function(){
+                expect(obj1).toBe(obj1);
+            });
+            it('does not expect an object to be a different', function(){
+                try{
+                    expect(obj1).toBe(obj2);
+                }catch(err){
+                    if(err.message !== 'expected {"abc":123} to equal {"abc":123}'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeTruthy', function(){

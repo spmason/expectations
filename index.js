@@ -68,6 +68,13 @@
         this.expectation = expectation;
         this.toEqual = function(val){
             var message = expectation(value, expr, 'to equal', val);
+            if(JSON.stringify(value) != JSON.stringify(val)){
+                return assertions.fail(message);
+            }
+            assertions.pass(message);
+        };
+        this.toBe = function(val){
+            var message = expectation(value, expr, 'to equal', val);
             if(value !== val){
                 return assertions.fail(message);
             }
