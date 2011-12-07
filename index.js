@@ -94,6 +94,13 @@
             }
             assertions.fail(message);
         };
+        this.toBeNull = function(){
+            var message = expectation(value, expr, 'to be null');
+            if(value === null){
+                return assertions.pass(message);
+            }
+            assertions.fail(message);
+        };
         this.toThrow = function(){
             var message = expectation(value, expr, 'to throw an exception');
             try{

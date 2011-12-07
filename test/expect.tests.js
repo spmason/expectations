@@ -82,6 +82,21 @@
             });
         });
 
+        describe('toBeNull', function(){
+            it('can expect values toBeNull', function(){
+                expect(null).toBeNull();
+            });
+            it('throws when expects non-null values toBeNull', function(){
+                try{
+                    expect('abc').toBeDefined();
+                }catch(err){
+                    if (err.message !== 'expected \'abc\' to be null'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('not', function(){
             it('negates equal', function(){
                 expect(false).not.toEqual(true);
