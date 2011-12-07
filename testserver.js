@@ -1,6 +1,7 @@
 var express = require('express');
 
 var app = express.createServer(
+    express.favicon(),
     express['static'](__dirname),
     express.directory(__dirname)
 );
