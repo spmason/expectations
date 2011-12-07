@@ -36,8 +36,15 @@
         if(typeof value === 'string'){
             return "'" + value + "'";
         }
+        if(value === null){
+            return 'null';
+        }
         if(typeof value === 'object'){
-            return JSON.stringify(value);
+            try{
+                return JSON.stringify(value);
+            }catch(e){
+                return value.toString();
+            }
         }
         return value.toString();
     }

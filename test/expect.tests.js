@@ -104,7 +104,7 @@
         });
 
         describe('messages', function(){
-            it('can expect values not toBeDefined', function(){
+            it('can generate correct message for objects', function(){
                 try{
                     expect({}).not.toBeDefined();
                 }catch(err){
@@ -113,7 +113,18 @@
                     }
                 }
             });
-            it('can expect functions not toBeDefined', function(){
+            it('can generate correct message for objects with circular references', function(){
+                try{
+                    var obj = {abc: 'def'};
+                    obj.obj = obj;
+                    expect(obj).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [object Object] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for anonymous functions', function(){
                 try{
                     expect(function(){}).not.toBeDefined();
                 }catch(err){
@@ -122,7 +133,7 @@
                     }
                 }
             });
-            it('can expect named functions not toBeDefined', function(){
+            it('can generate correct message for named functions', function(){
                 try{
                     expect(function name(){}).not.toBeDefined();
                 }catch(err){
