@@ -114,7 +114,7 @@
             });
         });
 
-        describe('toBeDefined', function(){
+        describe('toBeUndefined', function(){
             it('can expect undefined values toBeUndefined', function(){
                 expect(undefined).toBeUndefined();
             });
@@ -123,6 +123,25 @@
                     expect({}).toBeUndefined();
                 }catch(err){
                     if (err.message !== 'expected {} to be undefined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
+        describe('toThrow', function(){
+            it('can expect functions to throw', function(){
+                expect(function(){
+                    throw new Error('');
+                }).toThrow();
+            });
+            it('throws when function does not throw', function(){
+                try{
+                    expect(function(){
+                        // All OK
+                    }).toThrow();
+                }catch(err){
+                    if (err.message !== 'expected function (){} to throw an exception'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }

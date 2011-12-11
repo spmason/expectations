@@ -140,9 +140,9 @@
             var message = expectation(value, expr, 'to throw an exception');
             try{
                 value();
-                return assertions.pass(message);
-            }catch(e){
                 assertions.fail(message);
+            }catch(e){
+                assertions.pass(message);
             }
         };
         this.not = parent || new Expect(value, {
