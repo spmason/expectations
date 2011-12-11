@@ -39,6 +39,9 @@
         if(value === null){
             return 'null';
         }
+        if(value instanceof RegExp){
+            return value.toString();
+        }
         if(typeof value === 'object'){
             try{
                 return JSON.stringify(value);
@@ -100,6 +103,13 @@
                 return assertions.pass(message);
             }
             assertions.fail(message);
+        };
+        this.toMatch = function(regex){
+            var message = expectation(value, expr, 'to match', regex);
+            if(regex.test(value)){
+                return assertions.pass(message);
+            }
+            return assertions.fail(message);
         };
         this.toBeDefined = function(){
             var message = expectation(value, expr, 'to be defined');

@@ -57,6 +57,21 @@
             });
         });
 
+        describe('toMatch', function(){
+            it('can expect string toMatch', function(){
+                expect('abc').toMatch(/a/);
+            });
+            it('can expect string to not match', function(){
+                try{
+                    expect('abc').toMatch(/d/);
+                }catch(err){
+                    if (err.message !== 'expected \'abc\' to match /d/'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('toBeTruthy', function(){
             it('can expect toBeTruthy when truthy', function(){
                 expect('abc').toBeTruthy();
