@@ -1,8 +1,5 @@
 (function(root, factory) {
     'use strict';
-    var AssertionError = function(options){
-        this.message = options.message;
-    };
     // Set up Backbone appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS

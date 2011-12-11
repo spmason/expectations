@@ -3,6 +3,10 @@
     var AssertionError = function(options){
         this.message = options.message;
     };
+    AssertionError.prototype = Error.prototype;
+    AssertionError.prototype.toString = function(){
+        return this.message;
+    };
     // Set up Backbone appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS, no need for jQuery in that case.
