@@ -117,6 +117,21 @@
             });
         });
 
+        describe('toBeDefined', function(){
+            it('can expect undefined values toBeUndefined', function(){
+                expect(undefined).toBeUndefined();
+            });
+            it('throws when expects defined values toBeUndefined', function(){
+                try{
+                    expect({}).toBeUndefined();
+                }catch(err){
+                    if (err.message !== 'expected {} to be undefined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('toBeNull', function(){
             it('can expect values toBeNull', function(){
                 expect(null).toBeNull();

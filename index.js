@@ -118,6 +118,13 @@
             }
             assertions.fail(message);
         };
+        this.toBeUndefined = function(){
+            var message = expectation(value, expr, 'to be undefined');
+            if(typeof value === 'undefined'){
+                return assertions.pass(message);
+            }
+            assertions.fail(message);
+        };
         this.toBeNull = function(){
             var message = expectation(value, expr, 'to be null');
             if(value === null){
