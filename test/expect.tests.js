@@ -35,6 +35,12 @@
             it('can expect an object to be a different but equivalent object', function(){
                 expect({abc: 123}).toEqual({abc: 123});
             });
+            it('Can expect a more complex object to equal another complex object', function(){
+                var obj1 = {"name":"someData", array: [1,2,3,{c:"hello"}], val2: 'ing', val1: 'test'};
+                var obj2 = {"name":"someData", array: [1,2,3,{c:"hello"}], val1: 'test', val2: 'ing'};
+
+                expect(obj1).toEqual(obj2);
+            });
         });
 
         describe('toBe', function(){
