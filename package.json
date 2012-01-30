@@ -1,7 +1,7 @@
 {
   "author": "Steve Mason <steve@spmason.com>",
   "name": "expectations",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engines": {
     "node": ">0.4"
   },
@@ -10,5 +10,6 @@
     "express": "*",
     "mocha": "*",
     "zombie": "*"
-  }
+  },
+  "optionalDependencies": {}
 }
