@@ -53,7 +53,7 @@
                 try{
                     expect(obj1).toBe(obj2);
                 }catch(err){
-                    if(err.message !== 'expected {"abc":123} to equal {"abc":123}'){
+                    if(err.message !== 'expected {"abc": 123} to equal {"abc": 123}'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -191,7 +191,16 @@
                     obj.obj = obj;
                     expect(obj).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected [object Object] not to be defined'){
+                    if(err.message !== 'expected {"abc": \'def\', "obj": [object Object]} not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for objects with undefined values', function(){
+                try{
+                    expect({a: 1, b: undefined}).toEqual({a: 1});
+                }catch(err){
+                    if(err.message !== 'expected {a: 1, b: undefined} to equal {a: 1}'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }

@@ -30,7 +30,7 @@
         }
     };
 
-    function formatValue(value, ignoreUndefined){
+    function formatValue(value, ignoreUndefined, stack){
         if(typeof value === 'undefined'){
             return ignoreUndefined ? '' : 'undefined';
         }
@@ -46,12 +46,12 @@
         if(value instanceof RegExp){
             return value.toString();
         }
-        if(typeof value === 'object'){
-            try{
-                return JSON.stringify(value);
-            }catch(e){
-                return value.toString();
-            }
+
+        stack = stack || [];
+        if(typeof value === 'object' && stack.indexOf(value) === -1){
+            return '{' + Object.keys(value).map(function(key){
+                return '"' + key + '": ' + formatValue(value[key], false, stack.concat(value));
+            }).join(', ') + '}';
         }
         return value.toString();
     }
