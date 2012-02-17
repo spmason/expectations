@@ -53,7 +53,7 @@
         stack = stack || [];
         if(typeof value === 'object' && stack.indexOf(value) === -1){
             return '{' + Object.keys(value).map(function(key){
-                return '"' + key + '": ' + formatValue(value[key], false, stack.concat(value));
+                return ['"', key, '": ', formatValue(value[key], false, stack.concat(value))].join('');
             }).join(', ') + '}';
         }
         return value.toString();
