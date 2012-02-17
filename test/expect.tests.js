@@ -4,12 +4,12 @@
     if (typeof exports !== 'undefined') {
         // Node/CommonJS
         require('../index.js');
-        factory();
+        factory(root);
     } else {
         // Browser globals
-        factory();
+        factory(root);
     }
-})(this, function() {
+})(this, function(root) {
     'use strict';
 
     describe('expect', function(){
@@ -232,6 +232,19 @@
                     }
                 }
             });
+            if(root.document){
+                it('can generate correct message for DOM elements', function(){
+                    var el = root.document.createElement('div');
+
+                    try{
+                        expect(el).toBeUndefined();
+                    }catch(err){
+                        if(err.message !== 'expected <div /> to be undefined'){
+                            throw new Error('Expected error message is not correct: ' + err.message);
+                        }
+                    }
+                });
+            }
         });
     });
 });

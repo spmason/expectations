@@ -46,6 +46,9 @@
         if(value instanceof RegExp){
             return value.toString();
         }
+        if(value.nodeType == 1){
+            return '<' + value.nodeName.toLowerCase() + ' />';
+        }
 
         stack = stack || [];
         if(typeof value === 'object' && stack.indexOf(value) === -1){
@@ -77,7 +80,7 @@
             var message = expectation(value, expr, 'to equal', val);
           var toString = Object.prototype.toString,
               hasOwnProperty = Object.prototype.hasOwnProperty;
-            
+
             // This function borrowed from underscore
             function eq(a, b, stack) {
                 // Identical objects are equal. `0 === -0`, but they aren't identical.
