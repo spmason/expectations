@@ -1,6 +1,6 @@
 (function(root, factory) {
     'use strict';
-    // Set up Backbone appropriately for the environment.
+    // Set up appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS
         require('../index.js');
@@ -40,6 +40,15 @@
                 var obj2 = {"name":"someData", array: [1,2,3,{c:"hello"}], val1: 'test', val2: 'ing'};
 
                 expect(obj1).toEqual(obj2);
+            });
+            it('Can expect undefined to equal an object correctly', function(){
+                try{
+                    expect(undefined).toEqual('Not undefined');
+                }catch(err){
+                    if(err.message !== 'expected undefined to equal \'Not undefined\''){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
             });
         });
 
@@ -200,7 +209,7 @@
                 try{
                     expect({a: 1, b: undefined}).toEqual({a: 1});
                 }catch(err){
-                    if(err.message !== 'expected {a: 1, b: undefined} to equal {a: 1}'){
+                    if(err.message !== 'expected {"a": 1, "b": undefined} to equal {"a": 1}'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
