@@ -51,7 +51,7 @@
         }
 
         stack = stack || [];
-        if(typeof value === 'object' && stack.indexOf(value) === -1){
+        if(typeof value === 'object' && stack.indexOf(value) === -1 && stack.length < 5){
             return '{' + Object.keys(value).map(function(key){
                 return ['"', key, '": ', formatValue(value[key], false, stack.concat(value))].join('');
             }).join(', ') + '}';

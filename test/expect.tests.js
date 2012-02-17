@@ -205,6 +205,34 @@
                     }
                 }
             });
+            it('can generate correct message for deep objects', function(){
+                var obj = {
+                    a: {
+                        b: {
+                            c: {
+                                d: {
+                                    e: {
+                                        f: {
+                                            g: {
+                                                h: {
+                                                    a: 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                try{
+                    expect(obj).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected {"a": {"b": {"c": {"d": {"e": [object Object]}}}}} not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
             it('can generate correct message for objects with undefined values', function(){
                 try{
                     expect({a: 1, b: undefined}).toEqual({a: 1});
