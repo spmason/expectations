@@ -260,6 +260,15 @@
                     }
                 }
             });
+            it('can generate correct message for Dates', function(){
+                try{
+                    expect(new Date(2012, 0, 1)).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected Sun Jan 01 2012 00:00:00 GMT+0000 (GMT) not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
             if(root.document){
                 it('can generate correct message for DOM elements', function(){
                     var el = root.document.createElement('div');

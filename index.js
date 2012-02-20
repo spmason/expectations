@@ -43,6 +43,9 @@
         if(value === null){
             return 'null';
         }
+        if(value instanceof Date){
+            return value.toString();
+        }
         if(value instanceof RegExp){
             return value.toString();
         }
