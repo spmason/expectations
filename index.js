@@ -23,12 +23,12 @@
 })(this, function(root, AssertionError) {
     'use strict';
     var assertions = {
-        pass: function(message){
-        },
-        fail: function(message){
-            throw new AssertionError({message: message});
-        }
-    };
+            pass: function(message){
+            },
+            fail: function(message){
+                throw new AssertionError({message: message});
+            }
+        };
 
     function formatValue(value, ignoreUndefined, stack){
         if(typeof value === 'undefined'){
@@ -55,6 +55,13 @@
 
         stack = stack || [];
         if(typeof value === 'object' && stack.indexOf(value) === -1 && stack.length < 5){
+            if(value.toString() !== '[object Object]'){
+                if(value instanceof Error){
+                    return '[Error: ' + value.toString() + ']';
+                }
+                return '[' + value.toString() + ']';
+            }
+
             return '{' + Object.keys(value).map(function(key){
                 return ['"', key, '": ', formatValue(value[key], false, stack.concat(value))].join('');
             }).join(', ') + '}';

@@ -194,6 +194,28 @@
                     }
                 }
             });
+            it('can generate correct message for Function with custom toString()', function(){
+                function Obj(){}
+                Obj.prototype.toString = function(){
+                    return "testing";
+                };
+                try{
+                    expect(new Obj()).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [testing] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for Errors', function(){
+                try{
+                    expect(new Error('text')).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [Error: text] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
             it('can generate correct message for objects with circular references', function(){
                 try{
                     var obj = {abc: 'def'};
