@@ -31,6 +31,8 @@
         };
 
     function formatValue(value, ignoreUndefined, stack){
+        stack = stack || [];
+
         if(typeof value === 'undefined'){
             return ignoreUndefined ? '' : 'undefined';
         }
@@ -49,11 +51,17 @@
         if(value instanceof RegExp){
             return value.toString();
         }
+        if(value instanceof Array){
+            var mapped = [];
+            for(var i = 0; i < value.length; i++){
+                mapped.push(formatValue(value[i], false));
+            }
+            return '[' + mapped.join(', ') + ']';
+        }
         if(value.nodeType == 1){
             return '<' + value.nodeName.toLowerCase() + ' />';
         }
 
-        stack = stack || [];
         if(typeof value === 'object' && stack.indexOf(value) === -1 && stack.length < 5){
             if(value.toString() !== '[object Object]'){
                 if(value instanceof Error){

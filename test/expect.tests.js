@@ -194,6 +194,33 @@
                     }
                 }
             });
+            it('can generate correct message for arrays', function(){
+                try{
+                    expect([]).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for arrays of values', function(){
+                try{
+                    expect([1, {abc: 'def'}]).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [1, {"abc": "def"}] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for nested arrays of values', function(){
+                try{
+                    expect([1, [2]]).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected [1, [2]] not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
             it('can generate correct message for Function with custom toString()', function(){
                 function Obj(){}
                 Obj.prototype.toString = function(){
