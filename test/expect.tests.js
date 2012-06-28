@@ -45,7 +45,7 @@
                 try{
                     expect(undefined).toEqual('Not undefined');
                 }catch(err){
-                    if(err.message !== 'expected undefined to equal \'Not undefined\''){
+                    if(err.message !== 'expected undefined to equal "Not undefined"'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -77,7 +77,7 @@
                 try{
                     expect('abc').toMatch(/d/);
                 }catch(err){
-                    if (err.message !== 'expected \'abc\' to match /d/'){
+                    if (err.message !== 'expected "abc" to match /d/'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -92,7 +92,7 @@
                 try{
                     expect('').toBeTruthy();
                 }catch(err){
-                    if (err.message !== 'expected \'\' to be truthy'){
+                    if (err.message !== 'expected "" to be truthy'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -171,7 +171,7 @@
                 try{
                     expect('abc').toBeDefined();
                 }catch(err){
-                    if (err.message !== 'expected \'abc\' to be null'){
+                    if (err.message !== 'expected "abc" to be null'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -222,7 +222,7 @@
                     obj.obj = obj;
                     expect(obj).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected {"abc": \'def\', "obj": [object Object]} not to be defined'){
+                    if(err.message !== 'expected {"abc": "def", "obj": [object Object]} not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }

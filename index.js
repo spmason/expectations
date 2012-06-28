@@ -38,7 +38,7 @@
             return 'function ' + value.name + '(){}';
         }
         if(typeof value === 'string'){
-            return "'" + value + "'";
+            return '"' + value + '"';
         }
         if(value === null){
             return 'null';
