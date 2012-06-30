@@ -1,6 +1,7 @@
 {
-  "author": "Steve Mason <steve@spmason.com>",
+  "author": "Steve Mason",
   "name": "expectations",
+  "description": "jasmine-style 'expect' calls for mocha and other test frameworks",
   "version": "0.1.6",
   "engines": {
     "node": ">0.4"
@@ -11,5 +12,23 @@
     "mocha": "*",
     "zombie": "*"
   },
-  "optionalDependencies": {}
+  "optionalDependencies": {},
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spmason/expectations.git"
+  },
+  "keywords": [
+    "expect",
+    "mocha",
+    "jasmine",
+    "assertion"
+  ],
+  "license": "BSD"
 }
