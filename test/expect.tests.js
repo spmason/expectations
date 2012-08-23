@@ -313,7 +313,7 @@
                 try{
                     expect(new Date(2012, 0, 1)).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected [Date Sat, 31 Dec 2011 16:00:00 GMT] not to be defined'){
+                    if(err.message !== 'expected [Date Sun, 01 Jan 2012 00:00:00 GMT] not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
