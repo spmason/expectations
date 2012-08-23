@@ -46,7 +46,7 @@
             return 'null';
         }
         if(value instanceof Date){
-            return value.toString();
+            return '[Date ' + value.toUTCString() + ']';
         }
         if(value instanceof RegExp){
             return value.toString();
