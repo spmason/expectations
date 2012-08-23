@@ -1,10 +1,9 @@
 var express = require('express');
 
-var app = express.createServer(
-    express.favicon(),
-    express['static'](__dirname),
-    express.directory(__dirname)
-);
+var app = express();
+app.use(express.favicon());
+app.use(express['static'](__dirname));
+app.use(express.directory(__dirname));
 
 if(!module.parent){
     app.use(express.logger());

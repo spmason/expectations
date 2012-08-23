@@ -1,9 +1,10 @@
 var zombie = require('zombie'),
-    server = require('../testserver');
+    app = require('../testserver'),
+    server;
 
 before(function(done){
     'use strict';
-    server.listen(5000, done);
+    server = app.listen(5000, done);
 });
 
 after(function(){

@@ -1,0 +1,12 @@
+{
+    "browser": true,
+    "evil": true,
+    "globalstrict": true,
+    "node": true,
+    "predef":
+    [
+        "it",
+        "describe",
+        "expect"
+    ]
+}
