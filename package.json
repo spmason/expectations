@@ -4,13 +4,12 @@
   "description": "jasmine-style 'expect' calls for mocha and other test frameworks",
   "version": "0.1.6",
   "engines": {
-    "node": ">0.4"
+    "node": ">=0.8"
   },
   "dependencies": {},
   "devDependencies": {
-    "express": "*",
-    "mocha": "*",
-    "zombie": "*"
+    "mocha": "~1.8.2",
+    "testem": "~0.2.77"
   },
   "optionalDependencies": {},
   "main": "index.js",
