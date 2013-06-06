@@ -33,6 +33,10 @@
     function formatValue(value, ignoreUndefined, stack){
         stack = stack || [];
 
+        function isOnStack(value){
+            return stack.indexOf(value) > -1 && stack.indexOf(value) !== stack.length - 1;
+        }
+
         if(typeof value === 'undefined'){
             return ignoreUndefined ? '' : 'undefined';
         }
@@ -53,8 +57,12 @@
         }
         if(value instanceof Array){
             var mapped = [];
-            for(var i = 0; i < value.length; i++){
-                mapped.push(formatValue(value[i], false));
+            if(!isOnStack(value, stack) && stack.length < 5){
+                for(var i = 0; i < value.length; i++){
+                    mapped.push(formatValue(value[i], false, stack.concat(value)));
+                }
+            }else{
+                mapped.push(value.toString());
             }
             return '[' + mapped.join(', ') + ']';
         }
@@ -62,12 +70,15 @@
             return '<' + value.nodeName.toLowerCase() + ' />';
         }
 
-        if(typeof value === 'object' && stack.indexOf(value) === -1 && stack.length < 5){
+        if(typeof value === 'object' && stack.length < 5){
             if(value.toString() !== '[object Object]'){
                 if(value instanceof Error){
                     return '[Error: ' + value.toString() + ']';
                 }
                 return '[' + value.toString() + ']';
+            }
+            if(isOnStack(value, stack)){
+                return '[Circular]';
             }
 
             return '{' + Object.keys(value).map(function(key){

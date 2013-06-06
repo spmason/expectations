@@ -264,35 +264,47 @@
                     obj.obj = obj;
                     expect(obj).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected {"abc": "def", "obj": [object Object]} not to be defined'){
+                    if(err.message !== 'expected {"abc": "def", "obj": {"abc": "def", "obj": [Circular]}} not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
             });
             it('can generate correct message for deep objects', function(){
-                var obj = {
-                    a: {
-                        b: {
-                            c: {
-                                d: {
-                                    e: {
-                                        f: {
-                                            g: {
-                                                h: {
-                                                    a: 1
-                                                }
-                                            }
-                                        }
-                                    }
+                var nested = {},
+                    obj = {
+                        a: {
+                            b: {
+                                c: {
+                                    d: nested
                                 }
                             }
                         }
-                    }
-                };
+                    };
+                nested.e = obj;
                 try{
                     expect(obj).not.toBeDefined();
                 }catch(err){
                     if(err.message !== 'expected {"a": {"b": {"c": {"d": {"e": [object Object]}}}}} not to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can generate correct message for deep objects with arrays', function(){
+                var nested = {},
+                    obj = {
+                        a: {
+                            b: {
+                                c: {
+                                    d: nested
+                                }
+                            }
+                        }
+                    };
+                nested.e = [obj];
+                try{
+                    expect(obj).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected {"a": {"b": {"c": {"d": {"e": [[object Object]]}}}}} not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
