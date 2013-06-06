@@ -131,8 +131,8 @@
             if (a._chain) a = a._wrapped;
             if (b._chain) b = b._wrapped;
             // Invoke a custom `isEqual` method if one is provided.
-            if (a.isEqual && _.isFunction(a.isEqual)) return a.isEqual(b);
-            if (b.isEqual && _.isFunction(b.isEqual)) return b.isEqual(a);
+            if (a.isEqual && typeof a.isEqual === 'function') return a.isEqual(b);
+            if (b.isEqual && typeof b.isEqual === 'function') return b.isEqual(a);
             // Compare `[[Class]]` names.
             var className = toString.call(a);
             if (className != toString.call(b)) return false;
