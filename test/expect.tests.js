@@ -359,5 +359,18 @@
                 });
             }
         });
+
+        describe('extensibility', function(){
+            it('allows you to add your own assertions', function(){
+                expect.addAssertion('toBeFoo', function(){
+                    if(this.value === 'foo'){
+                        return this.pass();
+                    }
+                    this.fail('to be "foo"');
+                });
+
+                expect('foo').toBeFoo();
+            });
+        });
     });
 });

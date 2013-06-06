@@ -3,6 +3,7 @@
     "evil": true,
     "globalstrict": true,
     "node": true,
+    "undef": true,
     "predef":
     [
         "it",
