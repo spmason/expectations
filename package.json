@@ -12,7 +12,7 @@
     "testem": "~0.2.77"
   },
   "optionalDependencies": {},
-  "main": "index.js",
+  "main": "expectations.js",
   "directories": {
     "test": "test"
   },

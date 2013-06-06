@@ -3,7 +3,7 @@
     // Set up appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS
-        require('../index.js');
+        require('../expectations.js');
         factory(root);
     } else {
         // Browser globals
