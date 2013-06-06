@@ -210,6 +210,9 @@
         }
         this.assertions.pass(message);
     };
+    Expect.prototype.toNotEqual = function(value){
+        return this.not.toEqual(value);
+    };
     Expect.prototype.toBe = function(val){
         var message = this.generateMessage(this.value, this.expr, 'to equal', val);
         if(this.value !== val){
@@ -224,7 +227,7 @@
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeFalsey = function(val){
+    Expect.prototype.toBeFalsey = Expect.prototype.toBeFalsy = function(val){
         var message = this.generateMessage(this.value, this.expr, 'to be falsey');
         if(!this.value){
             return this.assertions.pass(message);
@@ -234,6 +237,13 @@
     Expect.prototype.toBeGreaterThan = function(val){
         var message = this.generateMessage(this.value, this.expr, 'to be greater than', val);
         if(this.value > val){
+            return this.assertions.pass(message);
+        }
+        this.assertions.fail(message);
+    };
+    Expect.prototype.toBeLessThan = function(val){
+        var message = this.generateMessage(this.value, this.expr, 'to be less than', val);
+        if(this.value < val){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);

@@ -52,6 +52,21 @@
             });
         });
 
+        describe('toNotEqual', function(){
+            it('can expect true to be false', function(){
+                expect(true).toNotEqual(false);
+            });
+            it('can expect true not to be true', function(){
+                try{
+                    expect(true).toNotEqual(true);
+                }catch(err){
+                    if(err.message !== 'expected true not to equal true'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('toBe', function(){
             var obj1 = {'abc': 123};
             var obj2 = {'abc': 123};
@@ -114,6 +129,21 @@
             });
         });
 
+        describe('toBeFalsy', function(){
+            it('can expect toBeFalsy when falsey', function(){
+                expect('').toBeFalsy();
+            });
+            it('can expect toBeFalsy when truthy', function(){
+                try{
+                    expect('abc').toBeFalsy();
+                }catch(err){
+                    if (err.message !== 'expected "abc" to be falsey'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('toBeGreaterThan', function(){
             it('can expect 1 toBeGreaterThan 0', function(){
                 expect(1).toBeGreaterThan(0);
@@ -123,6 +153,21 @@
                     expect(0).toBeGreaterThan(1);
                 }catch(err){
                     if (err.message !== 'expected 0 to be greater than 1'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
+        describe('toBeLessThan', function(){
+            it('can expect 0 toBeLessThan 1', function(){
+                expect(0).toBeLessThan(1);
+            });
+            it('can expect 1 toBeLessThan 0 throws', function(){
+                try{
+                    expect(1).toBeLessThan(0);
+                }catch(err){
+                    if (err.message !== 'expected 1 to be less than 0'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
