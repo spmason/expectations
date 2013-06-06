@@ -99,6 +99,21 @@
             });
         });
 
+        describe('toBeFalsey', function(){
+            it('can expect toBeFalsey when falsey', function(){
+                expect('').toBeFalsey();
+            });
+            it('can expect toBeFalsey when truthy', function(){
+                try{
+                    expect('abc').toBeFalsey();
+                }catch(err){
+                    if (err.message !== 'expected "abc" to be falsey'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('toBeGreaterThan', function(){
             it('can expect 1 toBeGreaterThan 0', function(){
                 expect(1).toBeGreaterThan(0);

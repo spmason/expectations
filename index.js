@@ -203,6 +203,13 @@
             }
             this.assertions.fail(message);
         };
+        this.toBeFalsey = function(val){
+            var message = expectation(value, expr, 'to be falsey');
+            if(!value){
+                return assertions.pass(message);
+            }
+            this.assertions.fail(message);
+        };
         this.toBeGreaterThan = function(val){
             var message = expectation(value, expr, 'to be greater than', val);
             if(value > val){
