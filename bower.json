@@ -1,0 +1,10 @@
+{
+  "name": "expectations",
+  "version": "0.0.0",
+  "main": "expectations.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
