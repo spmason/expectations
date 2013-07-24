@@ -8,8 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "mocha": "~1.8.2",
-    "testem": "~0.2.77"
+    "mocha": "~1.12.0",
+    "testem": "~0.3.21"
   },
   "optionalDependencies": {},
   "main": "expectations.js",
