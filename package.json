@@ -2,7 +2,7 @@
   "author": "Steve Mason",
   "name": "expectations",
   "description": "jasmine-style 'expect' calls for mocha and other test frameworks",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "engines": {
     "node": ">=0.8"
   },
