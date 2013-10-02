@@ -211,14 +211,37 @@
                 }).toThrow();
             });
             it('throws when function does not throw', function(){
+                var error;
+
                 try{
                     expect(function(){
                         // All OK
                     }).toThrow();
                 }catch(err){
-                    if (err.message !== 'expected function (){} to throw an exception'){
-                        throw new Error('Expected error message is not correct: ' + err.message);
-                    }
+                    error = err;
+                }
+
+                if (error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'expected function (){} to throw an exception'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
+                }
+            });
+            it('throws when toThrow is called on a non-function', function(){
+                var error;
+
+                try{
+                    expect('bob').toThrow();
+                }catch(err){
+                    error = err;
+                }
+
+                if (error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'expected "bob" to be a function'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
                 }
             });
         });
