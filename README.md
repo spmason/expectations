@@ -8,8 +8,8 @@ Designed for use in mocha, but suitable for use in any test framework.
 Installation
 ----
 
-NodeJS: `npm install expectations`
-Browser: Download manually
+* NodeJS: `npm install expectations`
+* Browser: Download manually, or `bower install expectations`
 
 Usage
 ---
