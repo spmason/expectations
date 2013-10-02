@@ -283,12 +283,21 @@
         this.assertions.fail('to be null');
     };
     Expect.prototype.toThrow = function(){
+        var threw = false;
+
+        if(typeof this.value !== 'function'){
+            return this.fail('to be a function');
+        }
+
         try{
             this.value();
-            this.fail('to throw an exception');
         }catch(e){
-            this.assertions.pass();
+            threw = true;
         }
+        if(!threw){
+            return this.fail('to throw an exception');
+        }
+        this.assertions.pass();
     };
     Expect.prototype.pass = function(){
         this.assertions.pass();
