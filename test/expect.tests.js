@@ -117,15 +117,27 @@
             });
         });
 
-        describe('toBeFalsey', function(){
-            it('can expect toBeFalsey when falsey', function(){
-                expect('').toBeFalsey();
+        describe('toContain', function(){
+            it('can expect array of numbers to contain number (passing)', function(){
+                expect([1, 2, 3, 4]).toContain(2);
             });
-            it('can expect toBeFalsey when truthy', function(){
+            it('can expect array of numbers to contain number (failing)', function(){
                 try{
-                    expect('abc').toBeFalsey();
+                    expect([1, 2, 3, 4]).toContain(5);
                 }catch(err){
-                    if (err.message !== 'expected "abc" to be falsey'){
+                    if (err.message !== 'expected [1, 2, 3, 4] to contain 5'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('can expect array of objects to contain object (passing)', function(){
+                expect([{a: 1}, {a: 2}, {a: 3}, {a: 4}]).toContain({a: 2});
+            });
+            it('can expect array of objects to contain object (failing)', function(){
+                try{
+                    expect([{a: 1}, {a: 2}, {a: 3}, {a: 4}]).toContain({a: 5});
+                }catch(err){
+                    if (err.message !== 'expected [{"a": 1}, {"a": 2}, {"a": 3}, {"a": 4}] to contain {"a": 5}'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
