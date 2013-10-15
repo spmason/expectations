@@ -63,7 +63,7 @@
             return '<' + value.nodeName.toLowerCase() + ' />';
         }
 
-        if(typeof value === 'object' && stack.length < 5){
+        if(typeof value === 'object' && stack.length < 10){
             if(value.toString() !== '[object Object]'){
                 if(value instanceof Error){
                     return '[Error: ' + value.toString() + ']';
@@ -127,9 +127,6 @@
             if (a === b) return a !== 0 || 1 / a == 1 / b;
             // A strict comparison is necessary because `null == undefined`.
             if (a == null || b == null) return a === b;
-            // Unwrap any wrapped objects.
-            if (a._chain) a = a._wrapped;
-            if (b._chain) b = b._wrapped;
             // Invoke a custom `isEqual` method if one is provided.
             if (a.isEqual && typeof a.isEqual === 'function') return a.isEqual(b);
             if (b.isEqual && typeof b.isEqual === 'function') return b.isEqual(a);
@@ -137,24 +134,24 @@
             var className = toString.call(a);
             if (className != toString.call(b)) return false;
             switch (className) {
-              // Strings, numbers, dates, and booleans are compared by value.
-            case '[object String]':
-              // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
-              // equivalent to `new String("5")`.
-              return a == String(b);
-            case '[object Number]':
-              // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
-              // other numeric values.
-              return a != +a ? b != +b : (a ? 1 / a == 1 / b : a == +b);
-            case '[object Date]':
-            case '[object Boolean]':
-              // Coerce dates and booleans to numeric primitive values. Dates are compared by their
-              // millisecond representations. Note that invalid dates with millisecond representations
-              // of `NaN` are not equivalent.
-              return +a == +b;
-              // RegExps are compared by their source patterns and flags.
-            case '[object RegExp]':
-              return a.source == b.source && a.global == b.global && a.multiline == b.multiline && a.ignoreCase == b.ignoreCase;
+                  // Strings, numbers, dates, and booleans are compared by value.
+                case '[object String]':
+                  // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+                  // equivalent to `new String("5")`.
+                  return a == String(b);
+                case '[object Number]':
+                  // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
+                  // other numeric values.
+                  return a != +a ? b != +b : (a ? 1 / a == 1 / b : a == +b);
+                case '[object Date]':
+                case '[object Boolean]':
+                  // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+                  // millisecond representations. Note that invalid dates with millisecond representations
+                  // of `NaN` are not equivalent.
+                  return +a == +b;
+                  // RegExps are compared by their source patterns and flags.
+                case '[object RegExp]':
+                  return a.source == b.source && a.global == b.global && a.multiline == b.multiline && a.ignoreCase == b.ignoreCase;
             }
             if (typeof a != 'object' || typeof b != 'object') return false;
             // Assume equality for cyclic structures. The algorithm for detecting cyclic
@@ -186,7 +183,7 @@
               if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) return false;
               // Deep compare objects.
               for (var key in a) {
-                if (hasOwnProperty.call(a, key)) {
+                if (hasOwnProperty.call(a, key) && a[key] !== undefined) {
                   // Count the expected number of properties.
                   size++;
                   // Deep compare each member.
@@ -196,7 +193,7 @@
               // Ensure that both objects contain the same number of properties.
               if (result) {
                 for (key in b) {
-                  if (hasOwnProperty.call(b, key) && !(size--)) break;
+                  if (hasOwnProperty.call(b, key) && b[key] !== undefined && !(size--)) break;
                 }
                 result = !size;
               }
