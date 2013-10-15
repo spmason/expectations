@@ -90,8 +90,7 @@
         // Identical objects are equal. `0 === -0`, but they aren't identical.
         // See the Harmony `egal` proposal: http://wiki.ecmascript.org/doku.php?id=harmony:egal.
         if (a === b) return a !== 0 || 1 / a == 1 / b;
-        // A strict comparison is necessary because `null == undefined`.
-        if (a == null || b == null) return a === b;
+        if (a == null || b == null) return a == b;
         // Invoke a custom `isEqual` method if one is provided.
         if (a.isEqual && typeof a.isEqual === 'function') return a.isEqual(b);
         if (b.isEqual && typeof b.isEqual === 'function') return b.isEqual(a);

@@ -38,6 +38,9 @@
             it('Ignores undefined values when comparing objects', function(){
                 expect({abc: 123, def: undefined}).toEqual({abc: 123});
             });
+            it('equates undefined values and null', function(){
+                expect(undefined).toEqual(null);
+            });
             it('Can expect a more complex object to equal another complex object', function(){
                 var obj1 = {"name":"someData", array: [1,2,3,{c:"hello"}], val2: 'ing', val1: 'test'};
                 var obj2 = {"name":"someData", array: [1,2,3,{c:"hello"}], val1: 'test', val2: 'ing'};
