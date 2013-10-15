@@ -63,7 +63,7 @@
             return '<' + value.nodeName.toLowerCase() + ' />';
         }
 
-        if(typeof value === 'object' && stack.length < 10){
+        if(typeof value === 'object' && stack.length < 5){
             if(value.toString() !== '[object Object]'){
                 if(value instanceof Error){
                     return '[Error: ' + value.toString() + ']';
