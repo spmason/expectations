@@ -262,6 +262,42 @@
                     throw new Error('Expected error message is not correct: ' + error.message);
                 }
             });
+            it('throws when parameterized Error message does not match the thrown Error message', function(){
+                var error;
+
+                try{
+                    expect(function(){
+                        throw new Error('I don\'t match');
+                    }).toThrow(new Error('the provided error'));
+                }catch(err){
+                    error = err;
+                }
+
+                if (error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'expected function (){} to throw "the provided error"'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
+                }
+            });
+            it('throws when parameterized string does not match the thrown Error messsage', function(){
+                var error;
+
+                try{
+                    expect(function(){
+                        throw new Error('I don\'t match');
+                    }).toThrow('the provided string');
+                }catch(err){
+                    error = err;
+                }
+
+                if (error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'expected function (){} to throw "the provided string"'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
+                }
+            });
         });
 
         describe('toBeNull', function(){

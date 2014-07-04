@@ -287,20 +287,30 @@
         }
         this.assertions.fail('to be null');
     };
-    Expect.prototype.toThrow = function(){
-        var threw = false;
+    Expect.prototype.toThrow = function(error){
+        var errorMessage,
+            thrownError;
 
         if(typeof this.value !== 'function'){
             return this.fail('to be a function');
+        }
+        if(typeof error === 'string'){
+            errorMessage = error;
+        }
+        else if(error instanceof Error){
+            errorMessage = error.message;
         }
 
         try{
             this.value();
         }catch(e){
-            threw = true;
+            thrownError = e;
         }
-        if(!threw){
+        if(!thrownError){
             return this.fail('to throw an exception');
+        }
+        if(errorMessage && thrownError.message !== errorMessage){
+            return this.fail('to throw', errorMessage);
         }
         this.assertions.pass();
     };
