@@ -52,7 +52,7 @@
         }
         if(value instanceof Array){
             var mapped = [];
-            if(!isOnStack(value, stack) && stack.length < 5){
+            if(!isOnStack(value, stack) && stack.length < 10){
                 for(var i = 0; i < value.length; i++){
                     mapped.push(formatValue(value[i], false, stack));
                     stack.push(value[i]);
@@ -66,7 +66,7 @@
             return '<' + value.nodeName.toLowerCase() + ' />';
         }
 
-        if(typeof value === 'object' && stack.length < 5){
+        if(typeof value === 'object' && stack.length < 10){
             if(value.toString() !== '[object Object]'){
                 if(value instanceof Error){
                     return '[Error: ' + value.toString() + ']';
