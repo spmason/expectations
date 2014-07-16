@@ -397,16 +397,28 @@
                         a: {
                             b: {
                                 c: {
-                                    d: nested
+                                    d: {
+                                        e: {
+                                            f: {
+                                                g: {
+                                                    h: {
+                                                        i: nested
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     };
-                nested.e = obj;
+                nested.j = obj;
                 try{
                     expect(obj).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected {"a": {"b": {"c": {"d": {"e": [object Object]}}}}} not to be defined'){
+                    if(err.message !==
+                        'expected {"a": {"b": {"c": {"d": {"e": {"f": {"g": {"h": {"i": {"j": [object Object]}}}}}}}}}} not to be defined'
+                        ){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -417,16 +429,28 @@
                         a: {
                             b: {
                                 c: {
-                                    d: nested
+                                    d: {
+                                        e: {
+                                            f: {
+                                                g: {
+                                                    h: {
+                                                        i: nested
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     };
-                nested.e = [obj];
+                nested.j = [obj];
                 try{
                     expect(obj).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected {"a": {"b": {"c": {"d": {"e": [[object Object]]}}}}} not to be defined'){
+                    if(err.message !==
+                        'expected {"a": {"b": {"c": {"d": {"e": {"f": {"g": {"h": {"i": {"j": [[object Object]]}}}}}}}}}} not to be defined'
+                        ){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
