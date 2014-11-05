@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/spmason/expectations.svg?branch=master)](https://travis-ci.org/spmason/expectations)
+
 Jasmine-style expectations for node.js & the browser
 ======
 
