@@ -19,6 +19,16 @@
             }
         });
 
+        if(typeof exports !== 'undefined'){
+            it('exports expect object in node', function(){
+                var expect = require('../expectations');
+
+                if(!expect){
+                    throw new Error('Expect object not exported in node');
+                }
+            });
+        }
+
         describe('toEqual', function(){
             it('can expect true to be true', function(){
                 expect(true).toEqual(true);

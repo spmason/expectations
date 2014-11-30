@@ -7,10 +7,10 @@
     AssertionError.prototype.toString = function(){
         return this.message;
     };
-    // Set up Backbone appropriately for the environment.
+    // Set up appropriately for the environment.
     if (typeof exports !== 'undefined') {
         // Node/CommonJS, no need for jQuery in that case.
-        factory(global, require('assert').AssertionError);
+        module.exports = factory(global, require('assert').AssertionError);
     } else if (typeof window.define === 'function' && window.define.amd) {
         // AMD
         window.define('expect', [], function() {
@@ -329,4 +329,5 @@
     root.expect.addAssertion = function(name, matcher){
         Expect.prototype[name] = matcher;
     };
+    return root.expect;
 });
