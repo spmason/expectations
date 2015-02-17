@@ -316,7 +316,7 @@
             });
             it('throws when expects non-null values toBeNull', function(){
                 try{
-                    expect('abc').toBeDefined();
+                    expect('abc').toBeNull();
                 }catch(err){
                     if (err.message !== 'expected "abc" to be null'){
                         throw new Error('Expected error message is not correct: ' + err.message);
