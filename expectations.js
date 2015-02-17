@@ -282,10 +282,11 @@
         this.assertions.fail(message);
     };
     Expect.prototype.toBeNull = function(){
+        var message = this.generateMessage(this.value, this.expr, 'to be null');
         if(this.value === null){
-            return this.assertions.pass();
+            return this.assertions.pass(message);
         }
-        this.assertions.fail('to be null');
+        this.assertions.fail(message);
     };
     Expect.prototype.toThrow = function(error){
         var errorMessage,

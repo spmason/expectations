@@ -316,7 +316,7 @@
             });
             it('throws when expects non-null values toBeNull', function(){
                 try{
-                    expect('abc').toBeDefined();
+                    expect('abc').toBeNull();
                 }catch(err){
                     if (err.message !== 'expected "abc" to be null'){
                         throw new Error('Expected error message is not correct: ' + err.message);
@@ -494,7 +494,7 @@
             });
             it('can generate correct message for Dates', function(){
                 try{
-                    expect(new Date(2012, 0, 1)).not.toBeDefined();
+                    expect(new Date(Date.UTC(2012, 0, 1))).not.toBeDefined();
                 }catch(err){
                     if(err.message !== 'expected [Date Sun, 01 Jan 2012 00:00:00 GMT] not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
