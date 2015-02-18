@@ -195,60 +195,66 @@
      * expr: An optional expression to pivot on, eg "not"
      * toDo: What the value was expected to do - eg "to equal", "to be defined" etc
      * otherVal: Optionally give the value you're comparing against at the end of the message
+     * customMsg: An optional custom message to include
     **/
-    Expect.prototype.generateMessage = function(value, expr, toDo, otherVal){
-        return ('expected ' + formatValue(value) + ' ' + expr + toDo + ' ' + formatValue(otherVal, true)).replace(/\s\s/g, ' ').replace(/(^\s|\s$)/g, '');
+    Expect.prototype.generateMessage = function(value, expr, toDo, otherVal, customMsg){
+        var message = ('expected ' + formatValue(value) + ' ' + expr + toDo + ' ' + formatValue(otherVal, true)).replace(/\s\s/g, ' ').replace(/(^\s|\s$)/g, '');
+
+        if (customMsg) {
+            return customMsg + ': ' + message;
+        }
+        return message;
     };
 
-    Expect.prototype.toEqual = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to equal', val);
+    Expect.prototype.toEqual = function(val, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to equal', val, customMsg);
 
         if(!eq(this.value, val, [])){
             return this.assertions.fail(message);
         }
         this.assertions.pass(message);
     };
-    Expect.prototype.toNotEqual = function(value){
-        return this.not.toEqual(value);
+    Expect.prototype.toNotEqual = function(value, customMsg){
+        return this.not.toEqual(value, customMsg);
     };
-    Expect.prototype.toBe = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to equal', val);
+    Expect.prototype.toBe = function(val, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to equal', val, customMsg);
         if(this.value !== val){
             return this.assertions.fail(message);
         }
         this.assertions.pass(message);
     };
-    Expect.prototype.toBeTruthy = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to be truthy');
+    Expect.prototype.toBeTruthy = function(customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be truthy', undefined, customMsg);
         if(!!this.value){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeFalsey = Expect.prototype.toBeFalsy = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to be falsey');
+    Expect.prototype.toBeFalsey = Expect.prototype.toBeFalsy = function(customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be falsey', undefined, customMsg);
         if(!this.value){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeGreaterThan = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to be greater than', val);
+    Expect.prototype.toBeGreaterThan = function(val, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be greater than', val, customMsg);
         if(this.value > val){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeLessThan = function(val){
-        var message = this.generateMessage(this.value, this.expr, 'to be less than', val);
+    Expect.prototype.toBeLessThan = function(val, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be less than', val, customMsg);
         if(this.value < val){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toContain = function(val){
+    Expect.prototype.toContain = function(val, customMsg){
         var i,
-            message = this.generateMessage(this.value, this.expr, 'to contain', val);
+            message = this.generateMessage(this.value, this.expr, 'to contain', val, customMsg);
 
         if(this.value.indexOf(val) > -1){
             return this.assertions.pass(message);
@@ -260,35 +266,35 @@
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toMatch = function(regex){
-        var message = this.generateMessage(this.value, this.expr, 'to match', regex);
+    Expect.prototype.toMatch = function(regex, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to match', regex, customMsg);
         if(regex.test(this.value)){
             return this.assertions.pass(message);
         }
         return this.assertions.fail(message);
     };
-    Expect.prototype.toBeDefined = function(){
-        var message = this.generateMessage(this.value, this.expr, 'to be defined');
+    Expect.prototype.toBeDefined = function(customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be defined', undefined, customMsg);
         if(typeof this.value !== 'undefined'){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeUndefined = function(){
-        var message = this.generateMessage(this.value, this.expr, 'to be undefined');
+    Expect.prototype.toBeUndefined = function(customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be undefined', undefined, customMsg);
         if(typeof this.value === 'undefined'){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toBeNull = function(){
-        var message = this.generateMessage(this.value, this.expr, 'to be null');
+    Expect.prototype.toBeNull = function(customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be null', undefined, customMsg);
         if(this.value === null){
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
     };
-    Expect.prototype.toThrow = function(error){
+    Expect.prototype.toThrow = function(error, customMsg){
         var errorMessage,
             thrownError;
 
@@ -308,18 +314,18 @@
             thrownError = e;
         }
         if(!thrownError){
-            return this.fail('to throw an exception');
+            return this.fail('to throw an exception', undefined, customMsg);
         }
         if(errorMessage && thrownError.message !== errorMessage){
-            return this.fail('to throw', errorMessage);
+            return this.fail('to throw', errorMessage, customMsg);
         }
         this.assertions.pass();
     };
     Expect.prototype.pass = function(){
         this.assertions.pass();
     };
-    Expect.prototype.fail = function(why, what){
-        var message = this.generateMessage(this.value, this.expr, why || '', what);
+    Expect.prototype.fail = function(why, what, customMsg){
+        var message = this.generateMessage(this.value, this.expr, why || '', what, customMsg);
 
         this.assertions.fail(message);
     };
