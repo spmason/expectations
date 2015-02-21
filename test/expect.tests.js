@@ -66,6 +66,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try {
+                    expect(true).toEqual(false, 'A custom error');
+                }catch(err){
+                    if(err.message !== 'A custom error: expected true to equal false') {
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toNotEqual', function(){
@@ -77,6 +86,15 @@
                     expect(true).toNotEqual(true);
                 }catch(err){
                     if(err.message !== 'expected true not to equal true'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try {
+                    expect(true).toNotEqual(true, 'A custom error');
+                }catch(err){
+                    if(err.message !== 'A custom error: expected true not to equal true') {
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -98,6 +116,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try {
+                    expect(obj1).toBe(obj2, 'A custom error');
+                }catch(err){
+                    if(err.message !== 'A custom error: expected {"abc": 123} to equal {"abc": 123}'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toMatch', function(){
@@ -113,6 +140,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try {
+                    expect('abc').toMatch(/d/, 'A custom error');
+                }catch(err){
+                    if(err.message !== 'A custom error: expected "abc" to match /d/'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeTruthy', function(){
@@ -124,6 +160,15 @@
                     expect('').toBeTruthy();
                 }catch(err){
                     if (err.message !== 'expected "" to be truthy'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect('').toBeTruthy('A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected "" to be truthy'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -155,6 +200,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try{
+                    expect([1, 2, 3, 4]).toContain(5, 'A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected [1, 2, 3, 4] to contain 5'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeFalsy', function(){
@@ -166,6 +220,15 @@
                     expect('abc').toBeFalsy();
                 }catch(err){
                     if (err.message !== 'expected "abc" to be falsey'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect('abc').toBeFalsy('A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected "abc" to be falsey'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -185,6 +248,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try{
+                    expect(0).toBeGreaterThan(1, 'A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected 0 to be greater than 1'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeLessThan', function(){
@@ -196,6 +268,15 @@
                     expect(1).toBeLessThan(0);
                 }catch(err){
                     if (err.message !== 'expected 1 to be less than 0'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect(1).toBeLessThan(0, 'A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected 1 to be less than 0'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -215,6 +296,15 @@
                     }
                 }
             });
+            it('supports custom messages', function(){
+                try{
+                    expect(undefined).toBeDefined('A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected undefined to be defined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeUndefined', function(){
@@ -226,6 +316,15 @@
                     expect({}).toBeUndefined();
                 }catch(err){
                     if (err.message !== 'expected {} to be undefined'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect({}).toBeUndefined('A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected {} to be undefined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
@@ -308,6 +407,24 @@
                     throw new Error('Expected error message is not correct: ' + error.message);
                 }
             });
+            it('supports custom messages', function(){
+                var error;
+
+                try{
+                    expect(function(){
+                        throw new Error('I don\'t match');
+                    }).toThrow('the provided string', 'A custom error');
+                }catch(err){
+                    error = err;
+                }
+
+                if (error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'A custom error: expected function (){} to throw "the provided string"'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
+                }
+            });
         });
 
         describe('toBeNull', function(){
@@ -319,6 +436,15 @@
                     expect('abc').toBeNull();
                 }catch(err){
                     if (err.message !== 'expected "abc" to be null'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect('abc').toBeNull('A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected "abc" to be null'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
