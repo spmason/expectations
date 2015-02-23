@@ -14,11 +14,11 @@
     } else if (typeof window.define === 'function' && window.define.amd) {
         // AMD
         window.define('expect', [], function() {
-            factory(root, AssertionError);
+            return factory(root, AssertionError);
         });
     } else {
         // Browser globals
-        factory(root, AssertionError);
+        root.expect = factory(root, AssertionError);
     }
 })(this, function(root, AssertionError) {
     'use strict';
