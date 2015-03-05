@@ -321,6 +321,16 @@
         }
         this.assertions.pass();
     };
+    Expect.prototype.toBeCloseTo = function(val, precision, customMsg){
+        var message = this.generateMessage(this.value, this.expr, 'to be close to', val, customMsg);
+        if (precision !== 0) {
+            precision = precision || 2;
+        }
+        if(Math.abs(val - this.value) < Math.pow(10, -precision) / 2){
+            return this.assertions.pass(message);
+        }
+        this.assertions.fail(message);
+    },
     Expect.prototype.pass = function(){
         this.assertions.pass();
     };
