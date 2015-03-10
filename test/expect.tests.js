@@ -451,6 +451,55 @@
             });
         });
 
+        describe('toBeCloseTo', function(){
+            it('passes when within two decimal places by default', function() {
+                expect(0).toBeCloseTo(0);
+                expect(0).toBeCloseTo(0.001);
+            });
+            it('fails when not within two decimal places by default', function() {
+                var error;
+                try{
+                    expect(0).toBeCloseTo(0.01);
+                }catch(err){
+                    error = err;
+                }
+                if(error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                if (error.message !== 'expected 0 to be close to 0.01'){
+                    throw new Error('Expected error message is not correct: ' + error.message);
+                }
+            });
+            it('accepts an optional precision argument', function() {
+                expect(0).toBeCloseTo(0.1, 0);
+                expect(0).toBeCloseTo(0.0001, 3);
+            });
+            it('rounds expected values', function() {
+                expect(1.23).toBeCloseTo(1.229);
+                expect(1.23).toBeCloseTo(1.226);
+                expect(1.23).toBeCloseTo(1.225);
+                var error;
+                try{
+                    expect(1.23).toBeCloseTo(1.2249999);
+                }catch(err){
+                    error = err;
+                }
+                if(error === undefined){
+                    throw new Error('Expected error was not thrown');
+                }
+                expect(1.23).toBeCloseTo(1.234);
+            });
+            it('supports custom messages', function(){
+                try{
+                    expect(1).toBeCloseTo(2, undefined, 'A custom error');
+                }catch(err){
+                    if (err.message !== 'A custom error: expected 1 to be close to 2'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
+        });
+
         describe('not', function(){
             it('negates equal', function(){
                 expect(false).not.toEqual(true);
