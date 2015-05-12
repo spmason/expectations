@@ -149,6 +149,20 @@
                     }
                 }
             });
+
+            it('can use a string as the match expression', function(){
+                expect('abc').toMatch('a');
+            });
+
+            it('throws if not called with a regex or string', function(){
+                try {
+                    expect('abc').toMatch({});
+                }catch(err){
+                    if(err.message !== 'unexpected object provided to Expect.toMatch: {}'){
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
         });
 
         describe('toBeTruthy', function(){
