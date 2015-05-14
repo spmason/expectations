@@ -280,6 +280,14 @@
     Expect.prototype.toMatch = function(regex, customMsg){
         var generateMessage = this.generateMessage(this.value, this.expr, 'to match', regex, customMsg);
 
+        if(typeof regex === 'string'){
+            regex = new RegExp(regex);
+        }
+
+        if(!regex.test){
+            throw new Error('unexpected object provided to Expect.toMatch: ' + JSON.stringify(regex) );
+        }
+
         if(regex.test(this.value)){
             return this.pass(generateMessage);
         }
