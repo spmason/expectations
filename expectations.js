@@ -330,7 +330,7 @@
             return this.assertions.pass(message);
         }
         this.assertions.fail(message);
-    },
+    };
     Expect.prototype.pass = function(){
         this.assertions.pass();
     };
