@@ -685,7 +685,10 @@
                 try{
                     expect(new Date(Date.UTC(2012, 0, 1))).not.toBeDefined();
                 }catch(err){
-                    if(err.message !== 'expected [Date Sun, 01 Jan 2012 00:00:00 GMT] not to be defined'){
+                    // IE <= 10 uses the format "Date Sun, 1 Jan 2012 00:00:00 UTC"; all other browsers use
+                    // "Date Sun, 01 Jan 2012 00:00:00 GMT".
+                    if(err.message !== 'expected [Date Sun, 01 Jan 2012 00:00:00 GMT] not to be defined' &&
+                       err.message !== 'expected [Date Sun, 1 Jan 2012 00:00:00 UTC] not to be defined'){
                         throw new Error('Expected error message is not correct: ' + err.message);
                     }
                 }
