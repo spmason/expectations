@@ -78,9 +78,6 @@
 
         if(typeof value === 'object' && stack.length < 10){
             if(value.toString() !== '[object Object]'){
-                if(value instanceof Error){
-                    return '[' + value + ']';
-                }
                 return '[' + value.toString() + ']';
             }
             if(isOnStack(value, stack)){
