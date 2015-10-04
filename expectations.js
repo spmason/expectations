@@ -3,7 +3,7 @@
     var AssertionError = function(options){
         this.message = options.message;
     };
-    AssertionError.prototype = Error.prototype;
+    AssertionError.prototype = Object.create(Error.prototype);
     AssertionError.prototype.toString = function(){
         return this.message;
     };
@@ -25,6 +25,16 @@
     var toString = Object.prototype.toString,
         hasOwnProperty = Object.prototype.hasOwnProperty;
 
+    // If a function has no name property (IE), get the name from its string representation.
+    function getFunctionName(fn){
+        var name = fn.name;
+        if (name === undefined){
+            var matches = /^\s*function\s+([\w$]+)/.exec(fn);
+            name = matches ? matches[1] : '';
+        }
+        return name;
+    }
+    
     function formatValue(value, ignoreUndefined, stack){
         stack = stack || [];
 
@@ -36,7 +46,7 @@
             return ignoreUndefined ? '' : 'undefined';
         }
         if(typeof value === 'function'){
-            return 'function ' + value.name + '(){}';
+            return 'function ' + getFunctionName(value) + '(){}';
         }
         if(typeof value === 'string'){
             return '"' + value + '"';
@@ -68,9 +78,6 @@
 
         if(typeof value === 'object' && stack.length < 10){
             if(value.toString() !== '[object Object]'){
-                if(value instanceof Error){
-                    return '[Error: ' + value.toString() + ']';
-                }
                 return '[' + value.toString() + ']';
             }
             if(isOnStack(value, stack)){
