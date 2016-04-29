@@ -34,7 +34,7 @@
         }
         return name;
     }
-    
+
     function formatValue(value, ignoreUndefined, stack){
         stack = stack || [];
 
@@ -77,7 +77,8 @@
         }
 
         if(typeof value === 'object' && stack.length < 10){
-            if(value.toString() !== '[object Object]'){
+
+            if(value.toString && value.toString() !== '[object Object]'){
                 return '[' + value.toString() + ']';
             }
             if(isOnStack(value, stack)){
@@ -88,7 +89,8 @@
                 return ['"', key, '": ', formatValue(value[key], false, stack.concat(value))].join('');
             }).join(', ') + '}';
         }
-        return value.toString();
+
+        return value.toString ? value.toString() : Object.prototype.toString.call(value);
     }
 
     // This function borrowed from underscore
