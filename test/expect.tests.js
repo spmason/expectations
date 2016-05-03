@@ -570,6 +570,18 @@
                     }
                 }
             });
+            it('can generate correct message for Object with null prototype', function(){
+                function Obj() {}
+                Obj.prototype = Object.create(null);
+                try{
+                    expect(new Obj()).not.toBeDefined();
+                }catch(err){
+                    if(err.message !== 'expected {} not to be defined'){
+                        console.log(err.message);
+                        throw new Error('Expected error message is not correct: ' + err.message);
+                    }
+                }
+            });
             it('can generate correct message for Errors', function(){
                 try{
                     expect(new Error('text')).not.toBeDefined();
