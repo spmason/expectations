@@ -514,6 +514,54 @@
             });
         });
 
+        describe('toBeOfType', function(){
+            it('can expect types to match', function(){
+               expect(123).toBeOfType('number');
+            });
+            it('can expect instances to not match', function(){
+               try{
+                   expect(123).toBeOfType('number');
+               }catch(err){
+                   if (err.message !== 'expected "abc" to be of type "number"'){
+                       throw new Error('Expected error message is not correct: ' + err.message);
+                   }
+               }
+            });
+            it('supports custom messages', function(){
+               try{
+                   expect('abc').toBeOfType('number', 'A custom error');
+               }catch(err){
+                   if (err.message !== 'A custom error: expected "abc" to be of type "number"'){
+                       throw new Error('Expected error message is not correct: ' + err.message);
+                   }
+               }
+            });
+        });
+
+        describe('toBeOfInstance', function(){
+            it('can expect types to match', function(){
+               expect([1, 2, 3]).toBeOfInstance(Array);
+            });
+            it('can expect types to not match', function(){
+               try{
+                   expect('abc').toBeOfInstance(Object);
+               }catch(err){
+                   if (err.message !== 'expected "abc" to be instance of "Object"'){
+                       throw new Error('Expected error message is not correct: ' + err.message);
+                   }
+               }
+            });
+            it('supports custom messages', function(){
+               try{
+                   expect('abc').toBeOfInstance(Object, 'A custom error');
+               }catch(err){
+                   if (err.message !== 'A custom error: expected "abc" to be instance of "Object"'){
+                       throw new Error('Expected error message is not correct: ' + err.message);
+                   }
+               }
+            });
+        });
+
         describe('not', function(){
             it('negates equal', function(){
                 expect(false).not.toEqual(true);

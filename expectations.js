@@ -364,6 +364,22 @@
         }
         this.fail(generateMessage);
     };
+    Expect.prototype.toBeOfType = function(type, customMsg){
+      var generateMessage = this.generateMessage(this.value, this.expr, 'to be of type', type, customMsg);
+
+      if(typeof this.value === type){
+          return this.pass(generateMessage);
+      }
+      this.fail(generateMessage);
+   };
+   Expect.prototype.toBeOfInstance = function(instance, customMsg){
+     var generateMessage = this.generateMessage(this.value, this.expr, 'to be instance of', instance.name, customMsg);
+
+     if(this.value instanceof instance){
+         return this.pass(generateMessage);
+     }
+     this.fail(generateMessage);
+   };
 
     Expect.prototype.pass = function(why){
         this.assertions.pass(why);
