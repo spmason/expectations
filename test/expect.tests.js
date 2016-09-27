@@ -51,6 +51,14 @@
             it('equates undefined values and null', function(){
                 expect(undefined).toEqual(null);
             });
+            it('supports Uint8Array comparisons', function() {
+                var a = new Uint8Array([2, 3]);
+                var b = new Uint8Array([2, 3]);
+                var c = new Uint8Array([1, 2, 3]);
+
+                expect(b).toEqual(a);
+                expect(c.subarray(1)).toEqual(a);
+            })
             it('Can expect a more complex object to equal another complex object', function(){
                 var obj1 = {"name":"someData", array: [1,2,3,{c:"hello"}], val2: 'ing', val1: 'test'};
                 var obj2 = {"name":"someData", array: [1,2,3,{c:"hello"}], val1: 'test', val2: 'ing'};

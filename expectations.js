@@ -140,7 +140,7 @@
         var size = 0,
             result = true;
         // Recursively compare objects and arrays.
-        if (className == '[object Array]') {
+        if (className == '[object Array]' || className == '[object Uint8Array]') {
           // Compare array lengths to determine if a deep comparison is necessary.
           size = a.length;
           result = size == b.length;
