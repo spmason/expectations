@@ -51,14 +51,85 @@
             it('equates undefined values and null', function(){
                 expect(undefined).toEqual(null);
             });
-            it('supports Uint8Array comparisons', function() {
-                var a = new Uint8Array([2, 3]);
-                var b = new Uint8Array([2, 3]);
-                var c = new Uint8Array([1, 2, 3]);
 
-                expect(b).toEqual(a);
-                expect(c.subarray(1)).toEqual(a);
-            })
+            if (typeof Uint8Array === "function") {
+                it('supports Uint8Array comparisons', function() {
+                    var a = new Uint8Array([2, 3]);
+                    var b = new Uint8Array([2, 3]);
+                    var c = new Uint8Array([1, 2, 3]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Int8Array comparisons', function() {
+                    var a = new Int8Array([-2, 3]);
+                    var b = new Int8Array([-2, 3]);
+                    var c = new Int8Array([1, -2, 3]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Uint16Array comparisons', function() {
+                    var a = new Uint16Array([2000, 3000]);
+                    var b = new Uint16Array([2000, 3000]);
+                    var c = new Uint16Array([1000, 2000, 3000]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Int16Array comparisons', function() {
+                    var a = new Int16Array([-2000, 3000]);
+                    var b = new Int16Array([-2000, 3000]);
+                    var c = new Int16Array([1000, -2000, 3000]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Uint32Array comparisons', function() {
+                    var a = new Uint32Array([2000000, 3000000]);
+                    var b = new Uint32Array([2000000, 3000000]);
+                    var c = new Uint32Array([1000000, 2000000, 3000000]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Int32Array comparisons', function() {
+                    var a = new Int32Array([-2000000, 3000000]);
+                    var b = new Int32Array([-2000000, 3000000]);
+                    var c = new Int32Array([1000000, -2000000, 3000000]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Float32Array comparisons', function() {
+                    var a = new Float32Array([-2000000.2222, 3000000.3333]);
+                    var b = new Float32Array([-2000000.2222, 3000000.3333]);
+                    var c = new Float32Array([1000000.1111, -2000000.2222, 3000000.3333]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+                it('supports Float64Array comparisons', function() {
+                    var a = new Float64Array([-2000000.2222 * 1000000, 3000000.3333 * 1000000]);
+                    var b = new Float64Array([-2000000.2222 * 1000000, 3000000.3333 * 1000000]);
+                    var c = new Float64Array([1000000.1111 * 1000000, -2000000.2222 * 1000000, 3000000.3333 * 1000000]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+            }
+
+            if (typeof Uint8ClampedArray === "function") {
+                it('supports Uint8ClampedArray comparisons', function() {
+                    var a = new Uint8ClampedArray([2, 3]);
+                    var b = new Uint8ClampedArray([2, 3]);
+                    var c = new Uint8ClampedArray([1, 2, 3]);
+
+                    expect(b).toEqual(a);
+                    expect(c.subarray(1)).toEqual(a);
+                });
+            }
+
             it('Can expect a more complex object to equal another complex object', function(){
                 var obj1 = {"name":"someData", array: [1,2,3,{c:"hello"}], val2: 'ing', val1: 'test'};
                 var obj2 = {"name":"someData", array: [1,2,3,{c:"hello"}], val1: 'test', val2: 'ing'};
