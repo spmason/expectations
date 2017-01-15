@@ -93,6 +93,18 @@
         return value.toString ? value.toString() : Object.prototype.toString.call(value);
     }
 
+	var arrayClassLookup = {
+		'[object Array]': true, 
+		'[object Int8Array]': true, 
+		'[object Uint8Array]': true, 
+		'[object Uint8ClampedArray]': true, 
+		'[object Int16Array]': true, 
+		'[object Uint16Array]': true,
+		'[object Int32Array]': true,
+		'[object Uint32Array]': true,
+		'[object Float32Array]': true,
+		'[object Float64Array]': true
+	}
     // This function borrowed from underscore
     function eq(a, b, stack) {
         /*jshint eqnull:true*/
@@ -140,7 +152,7 @@
         var size = 0,
             result = true;
         // Recursively compare objects and arrays.
-        if (className == '[object Array]' || className == '[object Uint8Array]') {
+        if (arrayClassLookup[className] === true) {
           // Compare array lengths to determine if a deep comparison is necessary.
           size = a.length;
           result = size == b.length;
