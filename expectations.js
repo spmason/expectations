@@ -164,8 +164,14 @@
                 }
             }
         } else {
-            // Objects with different constructors are not equivalent.
-            if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) return false;
+            // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+            // from different frames are.
+            var aCtor = a.constructor, bCtor = b.constructor;
+            if (aCtor !== bCtor
+                    && !(typeof aCtor === 'function' && aCtor instanceof aCtor && typeof bCtor === 'function' && bCtor instanceof bCtor)
+                    && ('constructor' in a && 'constructor' in b)) {
+                return false;
+            }
             // Deep compare objects.
             for (var key in a) {
                 if (hasOwnProperty.call(a, key) && a[key] !== undefined) {
