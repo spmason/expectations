@@ -154,6 +154,10 @@
                     }
                 }
             });
+
+            it('Can expect objects to be equal if only one has a constructor property', function(){
+                expect(Object.create(null)).toEqual({});
+            });
         });
 
         describe('toNotEqual', function(){
