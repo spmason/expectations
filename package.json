@@ -4,7 +4,7 @@
   "description": "jasmine-style 'expect' calls for mocha and other test frameworks",
   "version": "0.7.1",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=6.0"
   },
   "dependencies": {},
   "devDependencies": {
