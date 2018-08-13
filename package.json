@@ -10,7 +10,7 @@
   "devDependencies": {
     "eslint": "^3.13.1",
     "mocha": "^3.2.0",
-    "testem": "^1.6.0"
+    "testem": "^1.18.5"
   },
   "optionalDependencies": {},
   "main": "expectations.js",
