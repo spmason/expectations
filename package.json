@@ -9,7 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "eslint": "^6.0.1",
-    "mocha": "^6.0.1",
+    "mocha": "^7.0.0",
     "testem": "^2.14.0"
   },
   "optionalDependencies": {},
