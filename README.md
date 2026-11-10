@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/spmason/expectations.svg?branch=master)](https://travis-ci.org/spmason/expectations)
+> [!WARNING]
+> **Deprecated** - this package is no longer maintained. Use [`expect`](https://www.npmjs.com/package/expect) (Jest's standalone, Jasmine-style matchers) or Node's built-in [`node:assert`](https://nodejs.org/api/assert.html) instead
 
 Jasmine-style expectations for node.js & the browser
 ======
